@@ -214,7 +214,14 @@ img { display: block; max-width: 100%; }
   .hero__lede,
   .hero__actions .btn,
   .hero__owner,
-  .card { animation: none; }
+  .card,
+  .nav-toggle { animation: none; }
+
+  .nav,
+  .nav__item,
+  .nav-toggle__bars span,
+  .nav__item--menu .nav__menu { transition-duration: .01ms; }
+  .is-nav-open .nav__item { transition-delay: 0s; }
 }
 
 .phone {
@@ -234,6 +241,44 @@ img { display: block; max-width: 100%; }
 .phone__icon { flex: none; }
 
 .header__cta { margin-left: auto; }
+
+/* hamburger -- only ever visible below the desktop bar's breakpoint */
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-toggle__bars {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 14px;
+}
+
+.nav-toggle__bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transition: transform .32s var(--ease-out);
+}
+
+.nav-toggle__bars span:nth-child(1) { top: 0; }
+.nav-toggle__bars span:nth-child(2) { bottom: 0; }
+
+/* the two bars travel to the centre line and cross */
+.is-nav-open .nav-toggle__bars span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.is-nav-open .nav-toggle__bars span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
 
 /* ----------------------------------------------------------------- buttons */
 
@@ -503,7 +548,8 @@ img { display: block; max-width: 100%; }
 .brand,
 .nav__item,
 .phone,
-.header__cta {
+.header__cta,
+.nav-toggle {
   --rise: 9px;
   animation: glb-rise 760ms var(--ease-out) both;
 }
@@ -515,6 +561,7 @@ img { display: block; max-width: 100%; }
 .nav__item:nth-child(4) { animation-delay: 300ms; }
 .phone                  { animation-delay: 350ms; }
 .header__cta            { animation-delay: 395ms; }
+.nav-toggle             { animation-delay: 395ms; }
 
 /* hero copy --------------------------------------------------------------- */
 
@@ -554,8 +601,109 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 1040px) {
-  .nav, .phone { display: none; }
+  .phone { display: none; }
   .header__cta { margin-left: auto; }
+  .nav-toggle { display: inline-flex; margin-left: 12px; }
+
+  /* the header's own controls stay above the panel */
+  .brand,
+  .header__cta,
+  .nav-toggle { position: relative; z-index: 2; }
+
+  /* ---- the nav becomes a full panel ---- */
+
+  .nav {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;
+    padding: 116px 20px 48px;
+    background: #0d1628;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity .28s var(--ease-out),
+                transform .28s var(--ease-out),
+                visibility 0s linear .28s;
+  }
+
+  .is-nav-open .nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .3s var(--ease-out),
+                transform .3s var(--ease-out),
+                visibility 0s;
+  }
+
+  /* the load-in pass would pin these to opacity 1 and beat the transitions */
+  .nav__item {
+    animation: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s var(--ease-out), transform .3s var(--ease-out);
+  }
+
+  .is-nav-open .nav__item { opacity: 1; transform: none; }
+  .is-nav-open .nav__item:nth-child(1) { transition-delay: .07s; }
+  .is-nav-open .nav__item:nth-child(2) { transition-delay: .12s; }
+  .is-nav-open .nav__item:nth-child(3) { transition-delay: .17s; }
+  .is-nav-open .nav__item:nth-child(4) { transition-delay: .22s; }
+
+  .nav__link {
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 15px 0;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  .chev { width: 13px; height: 8px; margin-top: 4px; }
+
+  /* ---- submenus expand in place instead of hovering open ---- */
+
+  .nav__item--menu .nav__menu,
+  .nav__item--menu:hover .nav__menu,
+  .nav__item--menu:focus-within .nav__menu {
+    position: static;
+    left: auto;
+    padding-top: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .3s var(--ease-out);
+  }
+
+  .nav__item--menu.is-expanded .nav__menu { grid-template-rows: 1fr; }
+
+  .nav__menu > * { overflow: hidden; }   /* required for the 0fr -> 1fr reveal */
+
+  .nav__menu-list {
+    min-width: 0;
+    padding: 2px 0 12px;
+    background: none;
+    box-shadow: none;
+  }
+
+  .nav__menu-link {
+    padding: 11px 0 11px 18px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, .68);
+  }
+
+  .nav__menu-link:hover,
+  .nav__menu-link:focus-visible { color: #fff; transform: translateX(4px); }
+
+  .nav__item--menu:hover .chev,
+  .nav__item--menu:focus-within .chev { transform: none; }
+  .nav__item--menu.is-expanded .chev { transform: rotate(180deg); }
   .hero__inner {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 48px;
@@ -587,6 +735,8 @@ img { display: block; max-width: 100%; }
 @media (max-width: 620px) {
   /* the hero repeats this CTA immediately below, so drop it from the bar */
   .header__cta { display: none; }
+  /* with the CTA gone the toggle has to carry the auto margin itself */
+  .nav-toggle { margin-left: auto; }
   .hero__title { font-size: 32px; }
   .hero__lede { font-size: 16px; }
   .hero__actions { flex-wrap: wrap; gap: 14px; }

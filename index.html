@@ -21,7 +21,7 @@
         <img src="assets/logo.png" alt="Gray Lake Builders" />
       </a>
 
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav" id="site-nav" aria-label="Primary">
         <div class="nav__item nav__item--menu">
           <a class="nav__link" href="#">Services
             <svg class="chev" width="11" height="7" viewBox="0 0 11 7" aria-hidden="true"><path d="M1 1.25 5.5 5.5 10 1.25" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -65,6 +65,10 @@
         <span>Schedule Free Consultation</span>
         <svg class="arrow" width="22" height="9" viewBox="0 0 22 9" aria-hidden="true"><path d="M0 4.5h20M16.3 1 20 4.5l-3.7 3.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
     </div>
   </header>
 
@@ -124,6 +128,8 @@
     </div>
   </div>
 </section>
+
+<script src="main.js" defer></script>
 
 </body>
 </html>

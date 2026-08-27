@@ -6,6 +6,7 @@ Static, dependency-free recreation of the Gray Lake Builders hero section.
 
     index.html      markup
     styles.css      all styling
+    main.js         mobile nav panel (the only script)
     assets/         hero photo, owner cutout, logo, Google mark
 
 ## Type
@@ -26,8 +27,10 @@ Then visit http://localhost:4321.
 
 ## Notes
 
-- The nav dropdowns are CSS-only (`:hover` + `:focus-within`), with a
-  `prefers-reduced-motion` fallback.
+- The desktop nav dropdowns are CSS-only (`:hover` + `:focus-within`). Below
+  1040px the same markup becomes a full-screen panel behind a hamburger, and
+  the submenu parents expand in place instead — that toggle is all `main.js`
+  does. Both paths honour `prefers-reduced-motion`.
 - `assets/owner.png` carries a feathered halo below its last solid row (831
   of 876); `.hero__owner` offsets by that strip so the subject sits flush on
   the fold at every breakpoint.
