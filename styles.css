@@ -277,8 +277,10 @@ img { display: block; max-width: 100%; }
 /* ------------------------------------------------------------ hero layout */
 
 .hero__inner {
-  position: relative;
-  z-index: 2;
+  /* deliberately NOT positioned: .hero__owner lives in here now so it can
+     become a grid item on mobile, and on desktop its `position: absolute`
+     must still resolve against .hero. Content stays above .hero__bg/__scrim
+     /__owner anyway -- they all sit on negative z-indexes. */
   display: grid;
   grid-template-columns: minmax(0, 1fr) 410px;
   column-gap: 60px;
@@ -562,7 +564,23 @@ img { display: block; max-width: 100%; }
   .hero__copy { padding-top: 0; }
   .hero__title { font-size: 40px; }
   .hero__title br { display: none; }
-  .hero__owner { opacity: .45; }
+  /* the owner leaves the background and becomes a real block between the
+     copy and the form, so he reads as content rather than a backdrop */
+  .hero__owner {
+    --owner-x: 0px;
+    --owner-y: 0px;
+    position: static;
+    z-index: 0;
+    width: 100%;
+    max-width: 410px;
+    /* trim the empty strip below the last solid row so he sits flush on the
+       card instead of leaving a transparent band above it */
+    aspect-ratio: 1080 / 832;
+    height: auto;
+    object-fit: cover;
+    object-position: top center;
+    margin-bottom: -48px;   /* cancels the grid row-gap; photo meets the card */
+  }
   .card { max-width: 410px; }
 }
 
