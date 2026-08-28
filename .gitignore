@@ -6,3 +6,11 @@
 
 # Node
 node_modules/
+
+# Next
+.next/
+out/
+
+# Env
+.env.local
+.env*.local
