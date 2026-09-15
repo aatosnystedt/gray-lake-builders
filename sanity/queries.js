@@ -1,16 +1,17 @@
 /* Reading the homepage hero.
 
    The public site must render even when Sanity is unreachable or the document
-   has not been created yet, so every field falls back to the copy that used to
-   be hardcoded in index.html. `sanity/env` throws on missing config (the Studio
+   has not been created yet, so every field falls back to the default copy in
+   content/defaults.js. `sanity/env` throws on missing config (the Studio
    needs that to be loud), which is why the client is imported lazily here. */
 
+import { DEFAULT_HERO } from '../content/defaults';
+
 export const HERO_FALLBACK = {
-  heroHeading: 'Trusted Design-Build Remodeling\nIn Clear Creek County, Colorado',
-  heroSubheading:
-    'A client-first design-build team in Colorado that focuses on clear communication, quality craftsmanship, and clean finishes that protect your investment and elevate the way you live in your home.',
-  heroPrimaryCtaLabel: 'Schedule Free Consultation',
-  heroSecondaryCtaLabel: 'View Project Stories',
+  heroHeading: DEFAULT_HERO.heading,
+  heroSubheading: DEFAULT_HERO.subheading,
+  heroPrimaryCtaLabel: DEFAULT_HERO.primaryCta,
+  heroSecondaryCtaLabel: DEFAULT_HERO.secondaryCta,
 };
 
 const HOME_PAGE_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{

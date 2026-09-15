@@ -1,3 +1,5 @@
+import { DEFAULT_HERO } from '../../content/defaults';
+
 /* The homepage singleton. Only the hero is modelled for now -- the rest of the
    page is still hardcoded markup, and gets added here section by section. */
 
@@ -13,8 +15,7 @@ export const homePage = {
       rows: 2,
       description:
         'Each line becomes its own line on desktop. On mobile the text reflows and the break is ignored.',
-      initialValue:
-        'Trusted Design-Build Remodeling\nIn Clear Creek County, Colorado',
+      initialValue: DEFAULT_HERO.heading,
       validation: (Rule) => Rule.required(),
     },
     {
@@ -22,22 +23,21 @@ export const homePage = {
       title: 'Hero subheading',
       type: 'text',
       rows: 4,
-      initialValue:
-        'A client-first design-build team in Colorado that focuses on clear communication, quality craftsmanship, and clean finishes that protect your investment and elevate the way you live in your home.',
+      initialValue: DEFAULT_HERO.subheading,
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'heroPrimaryCtaLabel',
       title: 'Primary CTA label',
       type: 'string',
-      initialValue: 'Schedule Free Consultation',
+      initialValue: DEFAULT_HERO.primaryCta,
       validation: (Rule) => Rule.required().max(40),
     },
     {
       name: 'heroSecondaryCtaLabel',
       title: 'Secondary CTA label',
       type: 'string',
-      initialValue: 'View Project Stories',
+      initialValue: DEFAULT_HERO.secondaryCta,
       validation: (Rule) => Rule.required().max(40),
     },
   ],

@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Design tokens — the fixed system
+   --------------------------------------------------------------------------
+   Everything that stays the same from brand to brand: type, weights, sizes,
+   spacing, radii, borders, shadows, layering and motion. globals.css reads
+   only these and the theme — it holds no raw values of its own.
+
+   Colours and images are NOT here. They come from theme.js, which writes
+   --color-*, --image-*, --logo-* and --owner-* onto :root. Where a token below
+   needs a colour it references one of those, so composite tokens (shadows,
+   the scrim, the focus ring) follow a theme change automatically.
+
+   Two things can't live here:
+   - Breakpoints. Media queries don't read custom properties, so 1180px /
+     1040px / 620px are literals in globals.css; 1040px is mirrored in
+     SiteBehaviors.jsx.
+   - Font loading. The families below are fetched from Google Fonts in
+     app/(site)/layout.jsx; change both together.
+   ========================================================================== */
+
+:root {
+  /* ======================================================== typography */
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+
+  --tracking-display: -.02em;   /* every Fraunces heading */
+  --tracking-wide:    .01em;    /* nav, rating score */
+  --tracking-button:  .005em;
+  --tracking-label:   .055em;   /* uppercase form labels */
+
+  --body-size:    16px;
+  --body-leading: 1.5;
+
+  /* hero headline */
+  --display-weight:      var(--weight-light);
+  --display-size:        46px;
+  --display-size-fluid:  clamp(36px, 7vw - 36px, var(--display-size)); /* 1040–1180px: holds two lines */
+  --display-size-tablet: 40px;
+  --display-size-mobile: 32px;
+  --display-leading:     1.35;
+
+  /* hero lede */
+  --lede-size:        15.5px;
+  --lede-size-mobile: 16px;
+  --lede-weight:      var(--weight-regular);
+  --lede-leading:     1.68;
+  --lede-measure:     625px;
+
+  /* ============================================================ layout */
+
+  --layout-shell:  1144px;
+  --layout-gutter: 20px;
+
+  /* ============================================================= radii */
+
+  --radius-button: 0;
+  --radius-field:  0;
+  --radius-card:   0;
+  --radius-menu:   0;
+
+  /* ========================================================== borders */
+
+  --border-width: 1px;
+
+  /* ========================================================== shadows */
+
+  --shadow-card: 0 18px 48px color-mix(in srgb, var(--color-shadow) 22%, transparent);
+  --shadow-menu: 0 16px 38px color-mix(in srgb, var(--color-shadow) 20%, transparent);
+  --focus-ring:  0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent);
+
+  /* ========================================================== layering */
+
+  --z-hero-bg:         -3;
+  --z-hero-scrim:      -2;
+  --z-hero-owner:      -1;
+  --z-panel:            1;   /* mobile nav panel, inside the header */
+  --z-header-controls:  2;   /* logo, CTA and toggle above that panel */
+  --z-header:           3;
+  --z-menu:             5;   /* desktop dropdowns */
+
+  /* ============================================================ motion */
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+
+  --duration-hover:     .2s;    /* nav dim, buttons, fields, arrow nudge */
+  --duration-menu:      .18s;   /* desktop dropdown + chevron */
+  --duration-menu-link: .16s;
+  --duration-panel-in:  .3s;    /* mobile panel, its items, submenu reveal */
+  --duration-panel-out: .28s;
+  --duration-toggle:    .32s;   /* hamburger -> X */
+  --duration-reduced:   .01ms;  /* prefers-reduced-motion */
+
+  --hover-dim: .75;   /* opacity of nav + phone links on hover */
+  --nudge:     4px;   /* how far arrows and menu links slide on hover */
+
+  /* ======================================================= hero shell */
+
+  --hero-min-height:  100vh;
+  /* Hero photo wash: darkest at the top so the header and headline stay
+     legible, fading out toward the bottom, with a little extra on the left. */
+  --hero-scrim:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--color-scrim) 30%, transparent) 0%,
+      color-mix(in srgb, var(--color-scrim) 14%, transparent) 42%,
+      transparent 70%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--color-scrim) 80%, transparent) 0%,
+      color-mix(in srgb, var(--color-scrim) 66%, transparent) 24%,
+      color-mix(in srgb, var(--color-scrim) 52%, transparent) 54%,
+      color-mix(in srgb, var(--color-scrim) 26%, transparent) 80%,
+      color-mix(in srgb, var(--color-scrim) 10%, transparent) 100%);
+  /* how far the card reaches past the photo's bottom edge on mobile
+     (read by SiteBehaviors.jsx) */
+  --hero-overlap: 180px;
+
+  --hero-padding-top:         58px;
+  --hero-padding-top-stacked: 80px;
+  --hero-padding-bottom:      72px;
+  --hero-card-width:          410px;
+  --hero-column-gap:          60px;
+  --hero-column-gap-tablet:   40px;
+  --hero-stack-gap:           48px;   /* between blocks once stacked */
+  --hero-copy-offset:         44px;   /* copy column starts below the card top */
+
+  --hero-actions-gap:        24px;
+  --hero-actions-gap-mobile: 14px;
+  --hero-actions-gap-before: 32px;
+  --lede-gap-before:         18px;
+
+  /* =========================================================== header */
+
+  --header-offset:       25px;
+  --header-height:       62px;
+
+  --nav-offset:          105px;
+  --nav-offset-tablet:   48px;
+  --nav-gap:             26px;
+  --nav-gap-tablet:      20px;
+  --nav-size:            15.5px;
+  --nav-weight:          var(--weight-medium);
+  --nav-link-gap:        8px;    /* label to chevron */
+
+  --phone-offset:        54px;
+  --phone-offset-tablet: 28px;
+  --phone-gap:           10px;
+
+  --chev-offset:         2px;
+  --chev-opacity:        .95;
+
+  /* ================================================ desktop dropdowns */
+
+  --menu-min-width:    232px;
+  --menu-padding-y:    9px;
+  --menu-offset-x:     -20px;
+  --menu-bridge:       20px;   /* invisible reach so the pointer can cross */
+  --menu-travel:       6px;
+  --menu-link-padding: 9px 20px;
+  --menu-link-size:    14px;
+  --menu-link-weight:  var(--weight-regular);
+
+  /* ================================================== mobile nav panel */
+
+  --toggle-size:          44px;
+  --toggle-spacing:       12px;
+  --toggle-bars-width:    32px;
+  --toggle-bars-height:   13px;
+  --toggle-bar-thickness: 1.5px;
+
+  --panel-padding-top:     116px;
+  --panel-padding-bottom:  48px;
+  --panel-travel:          10px;
+  --panel-stagger-start:   .07s;
+  --panel-stagger-step:    .05s;
+
+  --panel-link-padding-y:  15px;
+  --panel-link-gap:        12px;
+  --panel-link-size:       20px;
+  --panel-link-weight:     var(--weight-light);
+
+  --panel-sublist-padding: 2px 0 12px;
+  --panel-sublink-padding: 11px 0 11px 18px;
+  --panel-sublink-size:    15px;
+  --panel-sublink-opacity: 62%;
+
+  --panel-cta-gap-before:  28px;
+
+  --panel-chev-width:      13px;
+  --panel-chev-height:     8px;
+  --panel-chev-offset:     4px;
+
+  /* ========================================================== buttons */
+
+  --button-height:          45px;
+  --button-padding-x:       18px;
+  --button-light-padding-x: 20px;
+  --button-gap:             9px;    /* label to arrow */
+  --button-size:            15px;
+  --button-weight:          var(--weight-regular);
+  --button-leading:         1;
+
+  /* ========================================================== rating */
+
+  --rating-icon-size:       25px;
+  --rating-gap-after:       31px;
+  --rating-spacing:         8px;
+  --rating-stars-spacing:   9px;
+  --rating-star-gap:        3px;
+  --rating-score-size:      19px;
+  --rating-score-weight:    var(--weight-semibold);
+  --rating-count-size:      15px;
+  --rating-count-weight:    var(--weight-medium);
+
+  /* ======================================================= form card */
+
+  --card-padding:           29px 25px 24px;
+
+  --card-title-size:        24px;
+  --card-title-weight:      var(--weight-light);
+  --card-title-leading:     1.28;
+
+  --card-sub-size:          14px;
+  --card-sub-weight:        var(--weight-regular);
+  --card-sub-leading:       1.42;
+  --card-sub-measure:       310px;
+  --card-sub-gap-before:    10px;
+
+  --form-gap-before:        22px;
+
+  --label-size:             11px;
+  --label-weight:           var(--weight-semibold);
+  --label-leading:          1;
+  --label-case:             uppercase;
+  --label-gap:              8px;
+
+  --field-height:           37px;
+  --field-padding-x:        12px;
+  --field-size:             13.5px;
+  --field-weight:           var(--weight-regular);
+  --field-gap:              13px;   /* between fields */
+  --field-area-height:      76px;
+  --field-area-padding-y:   10px;
+  --field-area-leading:     1.45;
+
+  --submit-padding:         17px 20px;
+  --submit-gap-before:      16px;   /* collapses with --field-gap */
+
+  /* ===================================================== entrance pass */
+
+  --enter-rise-default:     18px;
+
+  --enter-bg-duration:      1700ms;
+  --enter-bg-scale:         1.075;
+  --enter-scrim-duration:   1000ms;
+
+  --enter-header-duration:  760ms;
+  --enter-header-rise:      9px;
+  --enter-delay-brand:      100ms;
+  --enter-delay-nav-1:      165ms;
+  --enter-delay-nav-2:      210ms;
+  --enter-delay-nav-3:      255ms;
+  --enter-delay-nav-4:      300ms;
+  --enter-delay-phone:      350ms;
+  --enter-delay-header-cta: 395ms;
+
+  --enter-copy-duration:    860ms;
+  --enter-rating-rise:      14px;
+  --enter-rating-delay:     260ms;
+  --enter-title-rise:       22px;
+  --enter-title-delay:      340ms;
+  --enter-lede-rise:        18px;
+  --enter-lede-delay:       450ms;
+  --enter-actions-rise:     16px;
+  --enter-action-1-delay:   550ms;
+  --enter-action-2-delay:   610ms;
+
+  --enter-owner-duration:   1100ms;
+  --enter-owner-rise:       38px;
+  --enter-owner-delay:      430ms;
+
+  --enter-card-duration:    950ms;
+  --enter-card-rise:        26px;
+  --enter-card-delay:       520ms;
+}
