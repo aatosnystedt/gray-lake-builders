@@ -20,7 +20,7 @@ const SERVICES = [
   'Garage Remodeling',
 ];
 
-const ABOUT = ['Our Story', 'How We Build', 'Meet The Team', 'Careers'];
+const ABOUT = ['About Us', 'Our Process', 'Reviews'];
 
 export default async function HomePage() {
   const hero = await getHomePage();
