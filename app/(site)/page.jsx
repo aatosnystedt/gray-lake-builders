@@ -58,9 +58,9 @@ export default async function HomePage() {
               </a>
             </nav>
 
-            <a className="phone" href="tel:+12533004991">
+            <a className="phone" href="tel:+17205002000">
               <PhoneIcon />
-              <span>(253) 300-4991</span>
+              <span>(720) 500-2000</span>
             </a>
 
             <a className="btn btn--primary header__cta" href="#consult">
