@@ -12,11 +12,12 @@ import { theme } from './theme';
 export const revalidate = 60;
 
 const SERVICES = [
-  'Kitchen Remodeling',
   'Bathroom Remodeling',
-  'Basement Finishing',
-  'Whole-Home Renovation',
-  'Custom Additions',
+  'Building Additions',
+  'Kitchen Remodeling',
+  'Bedroom Remodeling',
+  'Deck Construction',
+  'Garage Remodeling',
 ];
 
 const ABOUT = ['Our Story', 'How We Build', 'Meet The Team', 'Careers'];
